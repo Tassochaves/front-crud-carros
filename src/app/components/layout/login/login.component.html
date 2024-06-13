@@ -1,17 +1,26 @@
 <div class="container">
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4 p-5 centralizar">
 
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4"></div>
-    <div class="col-lg-4"></div>
-    <div class="form-outline" data-mdb-input-init>
-        <input type="text" id="usuario" class="form-control" />
-        <label class="form-label" for="form12">Usuário</label>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-desktop"></i> Autentique-se:</h5>
+                    <mdb-form-control>
+                        <input mdbInput type="text" id="usuario" class="form-control mb-3" [(ngModel)]="usuario"/>
+                        <label mdbLabel class="form-label" for="form1">Usuário</label>
+                    </mdb-form-control>
+        
+                    <mdb-form-control>
+                        <input mdbInput type="password" id="senha" class="form-control mb-3" [(ngModel)]="senha"/>
+                        <label mdbLabel class="form-label" for="form1">Senha</label>
+                    </mdb-form-control>
+        
+                    <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="logar()">Acessar</button>
+                </div>
+              </div>
+        </div>
+        <div class="col-lg-4"></div>
+
     </div>
-
-    <div class="form-outline" data-mdb-input-init>
-        <input type="text" id="senha" class="form-control" />
-        <label class="form-label" for="form12">Senha</label>
-    </div>
-
-    <button type="button" class="btn btn-primary btn-rounded" data-mdb-ripple-init>Acessar</button>
 </div>
