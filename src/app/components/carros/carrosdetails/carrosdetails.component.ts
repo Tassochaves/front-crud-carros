@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { Carro } from '../../../models/carro';
@@ -14,7 +14,11 @@ import Swal from 'sweetalert2';
 })
 export class CarrosdetailsComponent {
 
-  carro: Carro = new Carro(0, "");
+  @Input("carro") 
+   carro: Carro = new Carro(0, "");
+
+  @Output("retorno")
+  retorno = new EventEmitter<any>();
 
   router = inject(ActivatedRoute);
   routeRedirect = inject(Router);
@@ -50,5 +54,7 @@ export class CarrosdetailsComponent {
       });
       this.routeRedirect.navigate(['admin/carros'], {state: {carroNovo: this.carro}});
     }
+
+    this.retorno.emit(this.carro);
   }
 }

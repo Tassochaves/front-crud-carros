@@ -1,18 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild, inject } from '@angular/core';
 import { Carro } from '../../../models/carro';
 import { RouterLink } from '@angular/router';
+import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+
 import Swal from 'sweetalert2';
+import { CarrosdetailsComponent } from "../carrosdetails/carrosdetails.component";
 
 @Component({
-  selector: 'app-carroslist',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './carroslist.component.html',
-  styleUrl: './carroslist.component.scss'
+    selector: 'app-carroslist',
+    standalone: true,
+    templateUrl: './carroslist.component.html',
+    styleUrl: './carroslist.component.scss',
+    imports: [RouterLink, MdbModalModule, CarrosdetailsComponent]
 })
 export class CarroslistComponent {
 
+  //Elementos de Modal
+  modalService = inject(MdbModalService);
+
+  @ViewChild('modalCarroDetalhe')
+  modalCarroDetalhe!: TemplateRef<any>;
+  modalRef!: MdbModalRef<any>;
+
   lista: Carro[] = [];
+  carroEdit: Carro = new Carro(0, "");
 
   constructor(){
 
@@ -33,6 +44,10 @@ export class CarroslistComponent {
       let indice = this.lista.findIndex(x => {return x.id == carroEditado.id});
       this.lista[indice] = carroEditado;
     }
+  }
+
+  modal(){
+    this.modalRef = this.modalService.open(this.modalCarroDetalhe);
   }
 
   deleteById(carro: Carro){
@@ -58,5 +73,28 @@ export class CarroslistComponent {
       }
     });
 
+  }
+
+  newCar(){
+    this.carroEdit = new Carro(0, "");
+    this.modalRef = this.modalService.open(this.modalCarroDetalhe);
+  }
+
+  edit(carro: Carro){
+    this.carroEdit = Object.assign({}, carro);
+    this.modalRef = this.modalService.open(this.modalCarroDetalhe);
+  }
+
+  retornoDetalhe(carro: Carro){
+
+    if(carro.id > 0){
+      let indice = this.lista.findIndex(x => {return x.id == carro.id});
+      this.lista[indice] = carro;
+    }else{
+      carro.id = 55;
+      this.lista.push(carro);
+    }
+
+    this.modalRef.close();
   }
 }
