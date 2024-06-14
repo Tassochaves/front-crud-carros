@@ -16,13 +16,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for (item of lista; track $index) {
+                            @for (carro of lista; track $index) {
                             <tr class="position-relative position-relative-example">
-                                <td>{{item.id}}</td>
-                                <td>{{item.nome}}</td>
-                                <td class="items-direita"> 
-                                    <button type="button" class="btn btn-primary btn-rounded me-2" mdbRipple routerLink="/admin/carros/edit/{{item.id}}" routerLinkActive="router-link-active"  >Editar</button>
-                                    <button type="button" class="btn btn-danger btn-rounded" mdbRipple (click)="deletar()">Deletar</button>
+                                <td>{{carro.id}}</td>
+                                <td>{{carro.nome}}</td>
+                                <td class="items-direita">
+                                    <button type="button" class="btn btn-primary btn-rounded me-2" mdbRipple routerLink="/admin/carros/edit/{{carro.id}}" routerLinkActive="router-link-active"  >Editar</button>
+                                    <button type="button" class="btn btn-danger btn-rounded" mdbRipple (click)="deleteById(carro)">Deletar</button>
                                 </td>
                             </tr>
                         }
