@@ -5,6 +5,7 @@ import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit
 
 import Swal from 'sweetalert2';
 import { CarrosdetailsComponent } from "../carrosdetails/carrosdetails.component";
+import { CarroService } from '../../../services/carro.service';
 
 @Component({
     selector: 'app-carroslist',
@@ -25,7 +26,7 @@ export class CarroslistComponent {
   lista: Carro[] = [];
   carroEdit: Carro = new Carro(0, "");
 
-  constructor(){
+  constructor(private carrosService: CarroService){
 
     this.lista.push(new Carro(1, "Fiesta"));
     this.lista.push(new Carro(2, "Uno"));
@@ -44,10 +45,25 @@ export class CarroslistComponent {
       let indice = this.lista.findIndex(x => {return x.id == carroEditado.id});
       this.lista[indice] = carroEditado;
     }
+
+    this.findAll();
   }
 
   modal(){
     this.modalRef = this.modalService.open(this.modalCarroDetalhe);
+  }
+
+  findAll(){
+    this.carrosService.findAll().subscribe({
+      next: lista => {
+        this.lista = lista;
+        console.log(lista);
+      },
+      error: erro =>{
+        alert('Erro encontado!');
+        console.error(erro);
+      }
+    });
   }
 
   deleteById(carro: Carro){
