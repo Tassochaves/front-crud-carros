@@ -26,13 +26,9 @@ export class CarroslistComponent {
   lista: Carro[] = [];
   carroEdit: Carro = new Carro(0, "");
 
-  constructor(private carrosService: CarroService){
+  carroService = inject(CarroService);
 
-    this.lista.push(new Carro(1, "Fiesta"));
-    this.lista.push(new Carro(2, "Uno"));
-    this.lista.push(new Carro(3, "Hilux"));
-    this.lista.push(new Carro(4, "S10"));
-
+  constructor(){
     let carroNovo = history.state.carroNovo;
     let carroEditado = history.state.carroEditado;
 
@@ -46,22 +42,26 @@ export class CarroslistComponent {
       this.lista[indice] = carroEditado;
     }
 
-    this.findAll();
+    this.listAll();
   }
 
   modal(){
     this.modalRef = this.modalService.open(this.modalCarroDetalhe);
   }
 
-  findAll(){
-    this.carrosService.findAll().subscribe({
-      next: lista => {
-        this.lista = lista;
-        console.log(lista);
+  listAll(){
+    this.carroService.listAll().subscribe({
+      next: listaBack => {
+        this.lista = listaBack;
+        console.log(listaBack);
       },
       error: erro =>{
-        alert('Erro encontado!');
-        console.error(erro);
+        Swal.fire({
+          title: 'Ocorreu um erro!',
+          icon: 'error',
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: 'Ok'
+        });
       }
     });
   }
@@ -77,15 +77,28 @@ export class CarroslistComponent {
       cancelButtonText: 'Não'
     }).then((result) => {
       if(result.isConfirmed){
-        let indice = this.lista.findIndex(x => {return x.id == carro.id});
-        this.lista.splice(indice, 1);
 
-        Swal.fire({
-          title: 'Deletado com sucesso!',
-          icon: 'success',
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: 'Ok'
+        this.carroService.delete(carro.id).subscribe({
+          next: mensagemBack => {
+            Swal.fire({
+              title: mensagemBack,
+              icon: 'success',
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: 'Ok'
+            });
+
+            this.listAll();
+          },
+          error: erro =>{
+            Swal.fire({
+              title: 'Ocorreu um erro!',
+              icon: 'error',
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: 'Ok'
+            });
+          }
         });
+
       }
     });
 

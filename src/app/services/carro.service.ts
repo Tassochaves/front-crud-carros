@@ -14,7 +14,7 @@ export class CarroService {
 
   constructor() { }
 
-  findAll(): Observable<Carro[]>{
+  listAll(): Observable<Carro[]>{
     return this.http.get<Carro[]>(this.API+"/listAll");
   }
 
@@ -30,7 +30,7 @@ export class CarroService {
     return this.http.post<string>(this.API+"/update/"+carro.id, carro, {responseType: 'text' as 'json'});
   }
 
-  delete(carro: Carro): Observable<string>{
-    return this.http.delete<string>(this.API+"/delete/"+carro.id, {responseType: 'text' as 'json'});
+  delete(id: number): Observable<string>{
+    return this.http.delete<string>(this.API+"/delete/"+id, {responseType: 'text' as 'json'});
   }
 }
