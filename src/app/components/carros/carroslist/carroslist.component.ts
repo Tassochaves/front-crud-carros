@@ -24,7 +24,7 @@ export class CarroslistComponent {
   modalRef!: MdbModalRef<any>;
 
   lista: Carro[] = [];
-  carroEdit: Carro = new Carro(0, "");
+  carroEdit: Carro = new Carro(0, "", null);
 
   carroService = inject(CarroService);
 
@@ -105,7 +105,7 @@ export class CarroslistComponent {
   }
 
   newCar(){
-    this.carroEdit = new Carro(0, "");
+    this.carroEdit = new Carro(0, "", null);
     this.modalRef = this.modalService.open(this.modalCarroDetalhe);
   }
 
@@ -115,15 +115,7 @@ export class CarroslistComponent {
   }
 
   retornoDetalhe(carro: Carro){
-
-    if(carro.id > 0){
-      let indice = this.lista.findIndex(x => {return x.id == carro.id});
-      this.lista[indice] = carro;
-    }else{
-      carro.id = 55;
-      this.lista.push(carro);
-    }
-
+    this.listAll();
     this.modalRef.close();
   }
 }
