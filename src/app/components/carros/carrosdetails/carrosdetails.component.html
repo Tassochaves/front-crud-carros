@@ -16,7 +16,32 @@
                         <span class="text-primary mb-3">Marca: {{carro.marca.nome}}</span>
                         <button type="button" class="btn btn-primary btn-rounded mb-3" mdbRipple (click)="buscarMarca()">Trocar marca</button>
                       }
+                    </div>
 
+                    <div>
+                        <button type="button" class="btn btn-primary btn-rounded mb-3" mdbRipple (click)="buscarAcessorio()">Buscar acessorio</button>
+
+                        <!--LISTA DE ACESSORIOS-->
+                        <table border="1" class="table table-sm">
+                          <thead>
+                              <tr>
+                                  <th>ID</th>
+                                  <th>Nome</th>
+                                  <th>Ações</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              @for (acessorio of carro.acessorios; track $index) {
+                              <tr class="position-relative position-relative-example">
+                                  <td>{{acessorio.id}}</td>
+                                  <td>{{acessorio.nome}}</td>
+                                  <td class="items-direita">
+                                    <button type="button" class="btn btn-danger btn-rounded" mdbRipple (click)="desvincularAcessorioCarro(acessorio)">Deletar</button>
+                                  </td>
+                              </tr>
+                          }
+                          </tbody>
+                      </table>
                     </div>
                     <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="save()">Salvar</button>
                 </div>
@@ -52,6 +77,6 @@
         ></button>
       </div>
       <div class="modal-body">
-        <app-marcaslist [ocultarBotoes]="true" (retorno)="retornoMarca($event)"></app-marcaslist>
+        <app-acessoriolist [ocultarBotoes]="true" (retorno)="retornoAcessorio($event)"></app-acessoriolist>
       </div>
     </ng-template>

@@ -126,10 +126,6 @@ export class MarcaslistComponent {
     this.modalRef.close();
   }
 
-  select(marca: Marca){
-    this.retorno.emit(marca);
-  }
-
   selectMarca(marca: Marca){
     this.retorno.emit(marca);
   }

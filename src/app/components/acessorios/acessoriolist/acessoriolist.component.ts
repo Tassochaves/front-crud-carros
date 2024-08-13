@@ -124,10 +124,6 @@ export class AcessoriolistComponent {
     this.modalRef.close();
   }
 
-  select(acessorio: Acessorio){
-    this.retorno.emit(acessorio);
-  }
-
   selectAcessorio(acessorio: Acessorio){
     this.retorno.emit(acessorio);
   }
