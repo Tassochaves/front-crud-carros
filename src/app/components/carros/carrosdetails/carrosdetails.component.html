@@ -28,7 +28,7 @@
 
 <ng-template [ngTemplateOutlet]="outlet" [ngOutletContext]="context" #modalMarcas>
   <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+      <h5 class="modal-title" id="exampleModalLabel">Marcas</h5>
       <button
         type="button"
         class="btn-close"
@@ -40,3 +40,18 @@
       <app-marcaslist [ocultarBotoes]="true" (retorno)="retornoMarca($event)"></app-marcaslist>
     </div>
   </ng-template>
+
+  <ng-template [ngTemplateOutlet]="outlet" [ngOutletContext]="context" #modalAcessorios>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Acessórios</h5>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modalRef.close()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <app-marcaslist [ocultarBotoes]="true" (retorno)="retornoMarca($event)"></app-marcaslist>
+      </div>
+    </ng-template>
