@@ -7,15 +7,15 @@
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-desktop"></i> Autentique-se:</h5>
                     <mdb-form-control>
-                        <input mdbInput type="text" id="usuario" class="form-control mb-3" [(ngModel)]="usuario"/>
+                        <input mdbInput type="text" id="usuario" class="form-control mb-3" [(ngModel)]="usuario" (keyup.enter)="logar()"/>
                         <label mdbLabel class="form-label" for="form1">Usuário</label>
                     </mdb-form-control>
-        
+
                     <mdb-form-control>
-                        <input mdbInput type="password" id="senha" class="form-control mb-3" [(ngModel)]="senha"/>
+                        <input mdbInput type="password" id="senha" class="form-control mb-3" [(ngModel)]="senha" (keyup.enter)="logar()"/>
                         <label mdbLabel class="form-label" for="form1">Senha</label>
                     </mdb-form-control>
-        
+
                     <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="logar()">Acessar</button>
                 </div>
               </div>
